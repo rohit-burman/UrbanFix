@@ -6,15 +6,15 @@ A small Go microservices project for booking home services. It is built to pract
 
 ```
                  HTTP :8001
-   Client ───────────────────▶ ┌──────────────┐
-                               │   Booking    │──── INSERT ───▶ ┌────────────┐
+   Client ──────────────────▶ ┌──────────────┐
+                               │   Booking    │─── INSERT ───▶ ┌────────────┐
                                │   Service    │                 │ PostgreSQL │
                                └──────┬───────┘                 └─────▲──────┘
                                       │                               │
                      gRPC :50051      │  publish                      │ SELECT
                   CheckServiceExists  │  "booking.created"            │
                                       ▼                               │
-   Client ───────────────────▶ ┌──────────────┐               ┌───────┴──────┐
+   Client ──────────────────▶ ┌──────────────┐               ┌───────┴──────┐
         HTTP :8000             │   Catalog    │───────────────│   RabbitMQ   │
                                │   Service    │               │ booking.     │
                                └──────────────┘               │ created queue│
